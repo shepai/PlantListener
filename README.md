@@ -26,10 +26,6 @@ values=l.step() #reads all sensors and returns an array of size 8
 ### Filtering
 Use the ```listerner.filter(values)``` function to apply a bandpass filter over each electrode. 
 The filter applies as following:
-$
-B_i & = \frac{RC}{RC + \Delta_T} B_{i-1} + \frac{RC}{RC + \Delta_T}(y_i-y_{(i-1)})
-$
+$B_i & = \frac{RC}{RC + \Delta_T} B_{i-1} + \frac{RC}{RC + \Delta_T}(y_i-y_{(i-1)})$
 
-$
-RC & = \Delta_T \frac{\alpha}{1-\alpha}
-$
+$RC & = \Delta_T \frac{\alpha}{1-\alpha}$
