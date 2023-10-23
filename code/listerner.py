@@ -14,7 +14,8 @@ except ImportError:
         from audiopwmio import PWMAudioOut as AudioOut
     except ImportError:
         pass  # not always supported by every board!
-    
+from adafruit_onewire.bus import OneWireBus
+import adafruit_ds18x20
 class listener:
     def __init__(self):
         #setup sd card
@@ -42,6 +43,17 @@ class listener:
             self.bio=0
         self.calibrate()
         print("Device setup!")
+        #setup temp
+        ow_bus = OneWireBus(board.GP5)
+        devices = ow_bus.scan()
+        for device in devices:
+            print("ROM = {} \tFamily = 0x{:02x}".format([hex(i) for i in device.rom], device.family_code))
+        self.temp=1
+        try:
+            self.ds18b20 = adafruit_ds18x20.DS18X20(ow_bus, devices[0])
+        except:
+            print("No Temperature device")
+            self.temp=0
         #bandpass filter
         self.LP=self.step()
         self.HP=self.step()
@@ -50,11 +62,15 @@ class listener:
             pass
         print("I2C addresses found:",[hex(device_address) for device_address in self.i2c.scan()])
     def step(self):
-        t=time.time()
         vals=np.zeros(8)
-        for i in range(1,9):
-            vals[i-1]=self.cap[i].raw_value
+        if self.bio:
+            t=time.time()
+            for i in range(1,9):
+                vals[i-1]=self.cap[i].raw_value
+        else:
+            print("No device for listening")
         return vals
+        
     def filter(self,array,alpha=0.1):
         low_pass=(1-alpha)*self.LP +(alpha*array)
         highpass=alpha*self.HP + alpha*(low_pass-self.LP)
@@ -63,7 +79,12 @@ class listener:
         return highpass
     def calibrate(self):
         self.cap.recalibrate()
-        
+    def soil_temp(self):
+        if self.temp:
+            return self.ds18b20.temperature
+        else:
+            print("No device for temperature")
+            return 0
 
 l=listener()
 #print(l.testI2C())
