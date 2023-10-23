@@ -10,7 +10,7 @@ Further sensors such as humidity, temperature, moister can be added alongside a 
 <img src="assets/pro-jCyufv6l.jpeg" width="30%">
 
 ## Installation
-To install this on a device you need to make sure you have a circuitpython device with the Adafruit CAP1188 library and Adafruit Onewire library both installed. Use GPIO9 for SCL pin and GPIO8 for SDA pin. 
+To install this on a device you need to make sure you have a circuitpython device with the <b> Adafruit CAP1188 library</b>, <b>Adafruit Onewire library</b>, and <b>Adafruit ds18x20</b> all installed. Use GPIO9 for SCL pin and GPIO8 for SDA pin. 
 Copy the code <a href="code/listerner.py">listerner.py</a> to the CP board. 
 
 In another file we can import the listerner:
