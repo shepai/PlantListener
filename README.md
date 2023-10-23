@@ -1,5 +1,5 @@
 # PlantListener
-Repo for development of a board that listens to the bioelectricity of plants and logs this data
+Repo for development of a board that listens to the bioelectricity of plants and logs this data. The aim of this porject is to investigate how bioelectricity can change given different stimuli to a plant. 
 
 ## Build
 You will need a device capable of running CircuiPython. We have used the Raspberry Pi Pico flashed with <a href="https://circuitpython.org/board/raspberry_pi_pico/">circuitpython</a>. We simplified the sd card and audio output by using a <a href="https://thepihut.com/products/maker-pi-pico-base-without-pico">cytron data logger board</a>. 
